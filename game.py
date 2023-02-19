@@ -189,7 +189,7 @@ class Main:
         apple_rect = apple.get_rect(
             midright=(score_rect.left, score_rect.centery))
         bg_rect = pygame.Rect(apple_rect.left, apple_rect.top,
-                              apple_rect.width + score_rect.width, apple_rect.height)
+                              apple_rect.width + score_rect.width + 6, apple_rect.height)
 
         pygame.draw.rect(screen, (167, 209, 61), bg_rect)
         screen.blit(score_surface, score_rect)

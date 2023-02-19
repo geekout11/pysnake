@@ -43,11 +43,16 @@ class Snake:
             'Graphics/body_bl.png').convert_alpha()
 
     def draw_snake(self):
-        for index,block in enumerate(self.body):
+        for index, block in enumerate(self.body):
             x_pos = int(block.x * cell_size)
             y_pos = int(block.y * cell_size)
+            block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
 
-            
+            if index == 0:
+                screen.blit(self.head_right, block_rect)
+            else:
+                pygame.draw.rect(screen, (150, 100, 100), block_rect)
+
     def move_snake(self):
         if self.new_block == True:
             body_copy = self.body[:]

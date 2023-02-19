@@ -7,7 +7,7 @@ from pygame.math import Vector2
 class Snake:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
-        self.direction = Vector2(1, 0)
+        self.direction = Vector2(0, 0)
         self.new_block = False
 
         self.head_up = pygame.image.load(
@@ -120,6 +120,10 @@ class Snake:
     def play_music(self):
         self.music_sound.play(-1).set_volume(0.3)
 
+    def reset(self):
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+        self.direction = Vector2(0, 0)
+
 class Fruit:
     def __init__(self):
         self.x = random.randint(0, cell_number - 1)
@@ -161,6 +165,10 @@ class Main:
             self.snake.add_block()
             self.snake.play_crunch_sound()
 
+        for block in self.snake.body[1:]:
+            if block == self.fruit.pos:
+                self.fruit.randomize()
+
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number:
             self.game_over()
@@ -172,8 +180,7 @@ class Main:
                 self.game_over()
 
     def game_over(self):
-        pygame.quit()
-        sys.exit()
+        self.snake.reset()
 
     def draw_grass(self):
         grass_color = (167, 209, 61)

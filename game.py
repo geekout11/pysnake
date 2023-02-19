@@ -62,6 +62,9 @@ class Snake:
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
 
+                if previous_block.y == next_block.y:
+                    screen.blit(self.body_horizontal, block_rect)
+
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
         if head_relation == Vector2(1, 0):

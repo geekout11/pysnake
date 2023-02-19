@@ -41,6 +41,10 @@ class Snake:
             'Graphics/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load(
             'Graphics/body_bl.png').convert_alpha()
+        self.crunch_sound = pygame.mixer.Sound(
+            'Sound/crunch.wav')
+        self.music_sound = pygame.mixer.Sound(
+            'Sound/snakemusic.mp3')
 
     def draw_snake(self):
         self.update_head_graphics()
@@ -110,6 +114,11 @@ class Snake:
     def add_block(self):
         self.new_block = True
 
+    def play_crunch_sound(self):
+        self.crunch_sound.play().set_volume(0.1)
+
+    def play_music(self):
+        self.music_sound.play(-1).set_volume(0.3)
 
 class Fruit:
     def __init__(self):
@@ -132,11 +141,13 @@ class Main:
     def __init__(self):
         self.snake = Snake()
         self.fruit = Fruit()
+        self.snake.play_music()
 
     def update(self):
         self.snake.move_snake()
         self.check_collision()
         self.check_fail()
+        
 
     def draw_elements(self):
         self.draw_grass()
@@ -148,6 +159,7 @@ class Main:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.randomize()
             self.snake.add_block()
+            self.snake.play_crunch_sound()
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number:
@@ -197,6 +209,7 @@ class Main:
         pygame.draw.rect(screen, (56, 74, 12), bg_rect, 2)
 
 
+# pygame.mixer.pre_init(44100,-16,2,512)
 pygame.init()
 cell_size = 40
 cell_number = 20

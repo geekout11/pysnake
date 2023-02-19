@@ -10,12 +10,44 @@ class Snake:
         self.direction = Vector2(1, 0)
         self.new_block = False
 
-    def draw_snake(self):
-        for block in self.body:
-            block_rect = pygame.Rect(
-                int(block.x * cell_size), int(block.y * cell_size), cell_size, cell_size)
-            pygame.draw.rect(screen, (183, 111, 122), block_rect)
+        self.head_up = pygame.image.load(
+            'Graphics/head_up.png').convert_alpha()
+        self.head_down = pygame.image.load(
+            'Graphics/head_down.png').convert_alpha()
+        self.head_right = pygame.image.load(
+            'Graphics/head_right.png').convert_alpha()
+        self.head_left = pygame.image.load(
+            'Graphics/head_left.png').convert_alpha()
 
+        self.tail_up = pygame.image.load(
+            'Graphics/tail_up.png').convert_alpha()
+        self.tail_down = pygame.image.load(
+            'Graphics/tail_down.png').convert_alpha()
+        self.tail_right = pygame.image.load(
+            'Graphics/tail_right.png').convert_alpha()
+        self.tail_left = pygame.image.load(
+            'Graphics/tail_left.png').convert_alpha()
+
+        self.body_vertical = pygame.image.load(
+            'Graphics/body_vertical.png').convert_alpha()
+        self.body_horizontal = pygame.image.load(
+            'Graphics/body_horizontal.png').convert_alpha()
+
+        self.body_tr = pygame.image.load(
+            'Graphics/body_tr.png').convert_alpha()
+        self.body_tl = pygame.image.load(
+            'Graphics/body_tl.png').convert_alpha()
+        self.body_br = pygame.image.load(
+            'Graphics/body_br.png').convert_alpha()
+        self.body_bl = pygame.image.load(
+            'Graphics/body_bl.png').convert_alpha()
+
+    def draw_snake(self):
+        for index,block in enumerate(self.body):
+            x_pos = int(block.x * cell_size)
+            y_pos = int(block.y * cell_size)
+
+            
     def move_snake(self):
         if self.new_block == True:
             body_copy = self.body[:]
@@ -41,7 +73,6 @@ class Fruit:
         fruit_rect = pygame.Rect(
             int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
         screen.blit(apple, fruit_rect)
-        # pygame.draw.rect(screen, (126, 166, 114), fruit_rect)
 
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)

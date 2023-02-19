@@ -9,6 +9,7 @@ class Snake:
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(0, 0)
         self.new_block = False
+        pygame.display.set_caption('PySnake')
 
         self.head_up = pygame.image.load(
             'Graphics/head_up.png').convert_alpha()
@@ -124,6 +125,7 @@ class Snake:
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(0, 0)
 
+
 class Fruit:
     def __init__(self):
         self.x = random.randint(0, cell_number - 1)
@@ -151,7 +153,6 @@ class Main:
         self.snake.move_snake()
         self.check_collision()
         self.check_fail()
-        
 
     def draw_elements(self):
         self.draw_grass()
@@ -163,6 +164,7 @@ class Main:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.randomize()
             self.snake.add_block()
+
             self.snake.play_crunch_sound()
 
         for block in self.snake.body[1:]:
@@ -216,7 +218,6 @@ class Main:
         pygame.draw.rect(screen, (56, 74, 12), bg_rect, 2)
 
 
-# pygame.mixer.pre_init(44100,-16,2,512)
 pygame.init()
 cell_size = 40
 cell_number = 20
